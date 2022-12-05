@@ -12,7 +12,7 @@ namespace consume.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://img.somee.com/");
+                client.BaseAddress = new Uri("https://img-api.azurewebsites.net/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -61,7 +61,7 @@ namespace consume.Controllers
             {
                 var json = JsonConvert.SerializeObject(person);
                 var data = new StringContent(json, Encoding.UTF8, "application/json");
-                var url = "https://img.somee.com/api/Person/";
+                var url = "https://img-api.azurewebsites.net/api/Person/";
 
                 HttpResponseMessage response = await client.PostAsync(url, data);
                 if (response.IsSuccessStatusCode)
@@ -85,7 +85,7 @@ namespace consume.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://img.somee.com/");
+                client.BaseAddress = new Uri("https://img-api.azurewebsites.net/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -127,7 +127,7 @@ namespace consume.Controllers
             {
                 var json = JsonConvert.SerializeObject(person);
                 var data = new StringContent(json, Encoding.UTF8, "application/json");
-                var url = "https://img.somee.com/api/Person/" + Id;
+                var url = "https://img-api.azurewebsites.net/api/Person/" + Id;
 
                 HttpResponseMessage response = await client.PutAsync(url, data);
                 //HttpResponseMessage response = await client.PatchAsync(url, data);
@@ -151,7 +151,7 @@ namespace consume.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://img.somee.com/");
+                client.BaseAddress = new Uri("https://img-api.azurewebsites.net/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -182,7 +182,7 @@ namespace consume.Controllers
         {
             using (var client = new HttpClient())
             {
-                var url = "https://img.somee.com/api/Person/" + Id;
+                var url = "https://img-api.azurewebsites.net/api/Person/" + Id;
 
                 HttpResponseMessage response = await client.DeleteAsync(url);
                 if (response.IsSuccessStatusCode)
@@ -214,7 +214,7 @@ namespace consume.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://img.somee.com/");
+                client.BaseAddress = new Uri("https://img-api.azurewebsites.net/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -241,7 +241,7 @@ namespace consume.Controllers
         {
             using (var client = new HttpClient())
             {
-                var url = "https://img.somee.com/api/Person/" + Id;
+                var url = "https://img-api.azurewebsites.net/api/Person/" + Id;
 
                 HttpResponseMessage response = await client.DeleteAsync(url);
                 if (response.IsSuccessStatusCode)
