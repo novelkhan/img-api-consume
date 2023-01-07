@@ -134,7 +134,7 @@ namespace consume.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     //string result = response.Content.ReadAsStringAsync().Result;
-                    TempData["AlertMsg"] = "Record has been succesfully saved";
+                    TempData["AlertMsg"] = " The record has been successfully saved";
                     return RedirectToAction("Index");
                 }
                 else
@@ -188,7 +188,7 @@ namespace consume.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     //string result = response.Content.ReadAsStringAsync().Result;
-                    TempData["AlertMsg"] = "Record has been succesfully deleted";
+                    TempData["AlertMsg"] = " The record has been succesfully deleted";
                     return RedirectToAction("Index");
                 }
                 else
@@ -247,7 +247,7 @@ namespace consume.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     //string result = response.Content.ReadAsStringAsync().Result;
-                    TempData["AlertMsg"] = "Record has been succesfully deleted";
+                    TempData["AlertMsg"] = "The record has been succesfully deleted";
                     return RedirectToAction("Index");
                 }
                 else

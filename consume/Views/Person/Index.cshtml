@@ -13,8 +13,18 @@
 
 @if (TempData["AlertMsg"] != null)
 {
-    <div class="alert alert-success">
-        <strong>Success !</strong>@TempData["AlertMsg"]
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+        </symbol>
+    </svg>
+    <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert" id="messagge">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
+        <div>
+            <strong>Success! </strong>
+            <span>@TempData["AlertMsg"]</span>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 
@@ -60,3 +70,91 @@
 }
     </tbody>
 </table>
+
+
+
+
+
+<script>
+    const out = setTimeout(() => {
+        var content = document.getElementById('messagge');
+        content.classList.add("d-none");
+    }, 6000);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+@*<style>
+    #myDIV {
+        width: 100%;
+        padding: 50px 0;
+        text-align: center;
+        background-color: lightblue;
+        margin-top: 20px;
+    }
+</style>
+
+<p>Click the "Try it" button to toggle between hiding and showing the DIV element:</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<div id="myDIV">
+    This is my DIV element.
+</div>
+
+<p><b>Note:</b> The element will not take up any space when the display property set to "none".</p>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("myDIV");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<h1>The Window Object</h1>
+<h2>The setTimeout() and clearTimeout() Methods</h2>
+
+<p>Click "Stop" to prevent myGreeting() to execute. (You have 5 seconds)</p>
+
+<button onclick="myStopFunction()">Stop!</button>
+
+<h2 id="demo"></h2>
+
+<script>
+    const myTimeout = setTimeout(myGreeting, 5000);
+
+    function myGreeting() {
+        document.getElementById("demo").innerHTML = "Happy Birthday!"
+    }
+
+    function myStopFunction() {
+        clearTimeout(myTimeout);
+    }
+</script>*@
