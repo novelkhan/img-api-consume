@@ -6,10 +6,10 @@
 
 <h1>All Person</h1>
 
+@*<p class="float-end">*@
 <p>
-    <a asp-action="Add">Add Person</a>
+    <a class="btn rounded-pill btn-sm btn-outline-danger" asp-action="Add">Add Person</a>
 </p>
-
 
 @if (TempData["AlertMsg"] != null)
 {
@@ -29,9 +29,9 @@
 }
 
 
-<table class="table  table-striped">
+<table class="table table-striped border border-danger">
     <thead>
-        <tr>
+        <tr class="border border-primary bg-info bg-opacity-75">
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -78,7 +78,10 @@
 <script>
     const out = setTimeout(() => {
         var content = document.getElementById('messagge');
-        content.classList.add("d-none");
+        if (content != null)
+        {
+            content.classList.add("d-none");
+        }
     }, 6000);
 </script>
 
