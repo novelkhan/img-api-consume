@@ -91,6 +91,81 @@ namespace consume.Controllers
 
 
 
+
+
+
+
+
+
+        // GET: Student/Delete/5
+        public async Task<IActionResult> Delete(int? Id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://img.somee.com/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+                //Get Method
+                HttpResponseMessage response = await client.GetAsync("api/Student/" + Id);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    std deserializedStudent = JsonConvert.DeserializeObject<std>(result);
+                    StudentDTO desiredStudent = new StudentDTO()
+                    {
+                        Id = deserializedStudent.Id,
+                        Name = deserializedStudent.Name,
+                        Roll = deserializedStudent.Roll,
+                        Image = BytesArrayToIFormFile(deserializedStudent.Image)
+                    };
+                    return View(desiredStudent);
+                }
+                else
+                {
+                    return View();
+                }
+            }
+        }
+
+        // POST: Student/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int Id)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = "https://img.somee.com/api/Student/" + Id;
+
+                HttpResponseMessage response = await client.DeleteAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    //string result = response.Content.ReadAsStringAsync().Result;
+                    //TempData["AlertMsg"] = "The record has been succesfully deleted";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public static IFormFile BytesArrayToIFormFile(byte[] BytesPhoto)
         {
             var stream = new MemoryStream(BytesPhoto);
