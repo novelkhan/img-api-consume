@@ -1,0 +1,71 @@
+﻿@model consume.DTOs.Student.StudentDTO
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Add Student</h1>
+
+<h4>FileUpload</h4>
+<hr />
+@if (ViewBag.Issuccess == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Congratulations!</strong> @ViewBag.Message.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Roll" class="control-label"></label>
+                <input asp-for="Roll" class="form-control" />
+                <span asp-validation-for="Roll" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="Image" class="custom-file-input" id="customFile" />
+                    <label class="custom-file-label" for="customFile">Choose photo</label>
+                </div>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-outline-primary mt-2 mb-4" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-7" id="preview"></div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<script>
+    document.getElementById('customFile').addEventListener("change", function (Event) {
+        var imageUrl = URL.createObjectURL(Event.target.files[0]);
+        var imagediv = document.getElementById('preview');
+        imagediv.innerHTML = '';
+        var newimg = document.createElement('img');
+        newimg.src = imageUrl;
+        newimg.classList.add("img-thumbnail");
+        newimg.classList.add("img-fluid");
+        imagediv.appendChild(newimg);
+    });
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
