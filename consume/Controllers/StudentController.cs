@@ -9,14 +9,7 @@ using System.Reflection;
 using System.Text;
 
 namespace consume.Controllers
-{
-    public class std
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Roll { get; set; }
-        public byte[] Image { get; set; }
-    }
+{  
     public class StudentController : Controller
     {
         public async Task<IActionResult> Index()
@@ -34,8 +27,8 @@ namespace consume.Controllers
                 {
                     List<StudentDTO> students = new List<StudentDTO>();
                     var result = await response.Content.ReadAsStringAsync();
-                    List<std> stdobject = JsonConvert.DeserializeObject<List<std>>(result);
-                    foreach (var st in stdobject)
+                    List<std> stdObject = JsonConvert.DeserializeObject<List<std>>(result);
+                    foreach (var st in stdObject)
                     {
                         students.Add(new StudentDTO
                         {
@@ -103,6 +96,14 @@ namespace consume.Controllers
             var stream = new MemoryStream(BytesPhoto);
             IFormFile ImageIFormFile = new FormFile(stream, 0, (BytesPhoto).Length, "name", "fileName");
             return ImageIFormFile;
+        }
+
+        public class std
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Roll { get; set; }
+            public byte[] Image { get; set; }
         }
     }
 }
