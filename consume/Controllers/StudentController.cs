@@ -153,6 +153,29 @@ namespace consume.Controllers
         }
 
 
+        //[HttpPost]
+        //For Direct Delete
+        public async Task<IActionResult> Del(int Id)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = "https://img.somee.com/api/Student/" + Id;
+
+                HttpResponseMessage response = await client.DeleteAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    //string result = response.Content.ReadAsStringAsync().Result;
+                    //TempData["AlertMsg"] = " The record has been succesfully deleted";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+        }
+
+
 
 
 
