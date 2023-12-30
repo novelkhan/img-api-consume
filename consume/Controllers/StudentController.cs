@@ -134,6 +134,8 @@ namespace consume.Controllers
 
                 var multipartContent = new MultipartFormDataContent();
 
+
+                //multipartContent.Add((uint)student.Id, "Id");         // Need to pass Student Id here
                 multipartContent.Add(new StringContent(student.Name), "Name");
                 multipartContent.Add(new StringContent(student.Roll), "Roll");
                 if (student.Image != null)
@@ -142,7 +144,7 @@ namespace consume.Controllers
                 }
 
                 //HttpResponseMessage response = await client.PutAsync(url, multipartContent);
-                HttpResponseMessage response = await client.PatchAsync(url, multipartContent);
+                HttpResponseMessage response = await client.PutAsync(url, multipartContent);
                 if (response.IsSuccessStatusCode)
                 {
                     //string result = response.Content.ReadAsStringAsync().Result;
