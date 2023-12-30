@@ -1,0 +1,67 @@
+﻿@model consume.DTOs.Student.StudentDTO
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Student Details</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Roll" class="control-label"></label>
+                <input asp-for="Roll" class="form-control" />
+                <span asp-validation-for="Roll" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                @* <input type="file" id="files" asp-for="file" class="form-control" /> *@
+                <div class="custom-file">
+                    <input asp-for="Image" data-val="false" class="custom-file-input" id="customFile" />
+                    <label class="custom-file-label" for="customFile">Choose photo</label>
+                </div>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-7" id="preview">
+        @{
+            var ms = new MemoryStream();
+            Model?.Image.CopyTo(ms);
+            var imagebytes = ms.ToArray();
+            var base64 = Convert.ToBase64String(imagebytes);
+            var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+        }
+        <img id="Image" src="@imgsrc" class="img-thumbnail img-fluid" />
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<script>
+    document.getElementById('customFile').addEventListener("change", function (Event) {
+        var imageUrl = URL.createObjectURL(Event.target.files[0]);
+        var img = document.getElementById('Image');
+        img.src = imageUrl;
+    });
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -90,6 +90,77 @@ namespace consume.Controllers
 
 
 
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://img.somee.com/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+                //Get Method
+                HttpResponseMessage response = await client.GetAsync("api/Student/" + Id);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    std deserializedStudent = JsonConvert.DeserializeObject<std>(result);
+                    StudentDTO desiredStudent = new StudentDTO()
+                    {
+                        Id = deserializedStudent.Id,
+                        Name = deserializedStudent.Name,
+                        Roll = deserializedStudent.Roll,
+                        Image = BytesArrayToIFormFile(deserializedStudent.Image)
+                    };
+                    return View(desiredStudent);
+                }
+                else
+                {
+                    return View();
+                }
+            }
+
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(StudentDTO student)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = "https://img.somee.com/api/Student/" + student.Id;
+
+                var multipartContent = new MultipartFormDataContent();
+
+                multipartContent.Add(new StringContent(student.Name), "Name");
+                multipartContent.Add(new StringContent(student.Roll), "Roll");
+                if (student.Image != null)
+                {
+                    multipartContent.Add(new StreamContent(student.Image.OpenReadStream()), "Image", student.Image.FileName);
+                }
+
+                //HttpResponseMessage response = await client.PutAsync(url, multipartContent);
+                HttpResponseMessage response = await client.PatchAsync(url, multipartContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    //string result = response.Content.ReadAsStringAsync().Result;
+                    //TempData["AlertMsg"] = " The record has been successfully saved";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+        }
+
+
+
+
+
+
         [HttpGet]
         public async Task<IActionResult> Details(int Id)
         {
