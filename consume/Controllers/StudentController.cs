@@ -135,7 +135,7 @@ namespace consume.Controllers
                 var multipartContent = new MultipartFormDataContent();
 
 
-                //multipartContent.Add((uint)student.Id, "Id");         // Need to pass Student Id here
+                multipartContent.Add(new StringContent((student.Id).ToString()), "Id");         // Need to pass Student Id here
                 multipartContent.Add(new StringContent(student.Name), "Name");
                 multipartContent.Add(new StringContent(student.Roll), "Roll");
                 if (student.Image != null)
